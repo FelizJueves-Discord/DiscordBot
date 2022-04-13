@@ -12,7 +12,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
-    
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/net.dv8tion/JDA -->
         <dependency>
