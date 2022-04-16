@@ -17,12 +17,14 @@ import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.auth.login.LoginException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Time;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
@@ -30,17 +32,29 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 
 public class Main extends ListenerAdapter {
-    int count = 0;
+    private int count = 0;
+    private static final String filename = "C:\\Users\\xdomi\\Desktop\\DiscordBot\\src\\main\\java\\BOT_TOKEN.txt";
 
     public static void main(String[] args) throws LoginException {
-        if (args.length < 1) {
-            System.out.println("You have to provide a token as first argument!");
-            System.exit(1);
+        //read token in "BOT_TOKEN" text file
+        String token = "";
+        File myObj = new File(filename);
+        Scanner myReader = null;
+        try {
+            myReader = new Scanner(myObj);
+        } catch (FileNotFoundException e) {
+            System.out.println("Token file not found.\n" +
+                    "Please provide a '.txt' file named 'BOT_TOKEN'");
+            e.printStackTrace();
         }
-        // args[0] should be the token
+        while (myReader.hasNextLine()) {
+            token = myReader.nextLine();
+        }
+        myReader.close();
+
         // We only need 2 intents in this bot. We only respond to messages in guilds and private channels.
         // All other events will be disabled.
-        JDABuilder.createLight(args[0], GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES)
+        JDABuilder.createLight(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES)
                 .addEventListeners(new Main())
                 .setActivity(Activity.playing("Type !ping"))
                 .build();
