@@ -38,24 +38,20 @@ public class Main extends ListenerAdapter {
 
     public static void main(String[] args) throws LoginException {
         //read token in "BOT_TOKEN" text file
-        String token = "";
-        File myObj = new File(filename);
-        Scanner myReader = null;
+        final File myObj = new File(filename);
         try {
-            myReader = new Scanner(myObj);
+           final Scanner myReader = new Scanner(myObj);
         } catch (FileNotFoundException e) {
             System.out.println("Token file not found.\n" +
                     "Please provide a '.txt' file named 'BOT_TOKEN'");
             e.printStackTrace();
         }
-        while (myReader.hasNextLine()) {
-            token = myReader.nextLine();
-        }
+        final String token = myReader.nextLine();
         myReader.close();
 
         // We only need 2 intents in this bot. We only respond to messages in guilds and private channels.
         // All other events will be disabled.
-        JDABuilder jdaBuilder = JDABuilder.createLight(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES)
+        final JDABuilder jdaBuilder = JDABuilder.createLight(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES)
                 .addEventListeners(new Main());
         if (LocalDateTime.now().getDayOfWeek().equals(DayOfWeek.THURSDAY)) {
             jdaBuilder.setActivity(Activity.playing("Feliz jueves \uD83E\uDD73"))
@@ -69,7 +65,7 @@ public class Main extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         final String prefix = "!";
-        Message msg = event.getMessage();
+        final Message msg = event.getMessage();
 
         String raw = msg.getContentRaw();
         MessageChannel channel = event.getChannel();
