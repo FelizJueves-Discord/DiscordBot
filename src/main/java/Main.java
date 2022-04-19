@@ -38,16 +38,19 @@ public class Main extends ListenerAdapter {
 
     public static void main(String[] args) throws LoginException {
         //read token in "BOT_TOKEN" text file
-        final File myObj = new File(filename);
+        final String token;
         try {
-           final Scanner myReader = new Scanner(myObj);
+            final File myObj = new File(filename);
+            final Scanner myReader = new Scanner(myObj);
+
+            token = myReader.nextLine();
+
+            myReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Token file not found.\n" +
-                    "Please provide a '.txt' file named 'BOT_TOKEN'");
-            e.printStackTrace();
+//            e.printStackTrace();
+            throw new RuntimeException("Something went wrong loading token");
         }
-        final String token = myReader.nextLine();
-        myReader.close();
+
 
         // We only need 2 intents in this bot. We only respond to messages in guilds and private channels.
         // All other events will be disabled.
