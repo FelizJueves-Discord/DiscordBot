@@ -86,9 +86,9 @@ public class Main extends ListenerAdapter {
                 if (LocalDateTime.now().getDayOfWeek().equals(DayOfWeek.THURSDAY)) {
                     count++;
                     User author = event.getAuthor();
-                    channel.sendMessage("Es oficialmente Jueves. " + author.getAsMention() + " nos desea un feliz jueves \uD83E\uDD73 \n\n"
-                            + "It's officially Thursday. " + author.getName() + " wishes us merry thursday \uD83E\uDD73 \n" +
-                            "```Feliz Jueves sent by " + author.getName() + ", " + count + "```").queue();
+                    channel.sendMessage("Es oficialmente jueves. " + author.getAsMention() + " nos desea un feliz jueves \uD83E\uDD73"
+                            + "\n\nIt's officially Thursday. " + author.getName() + " wishes us merry Thursday \uD83E\uDD73"
+                            + "\n```Feliz jueves sent by " + author.getName() + ", " + count + "```").queue();
                 }
                 break;
         }
