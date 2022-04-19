@@ -1,5 +1,6 @@
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.RateLimitedException;
@@ -54,10 +55,15 @@ public class Main extends ListenerAdapter {
 
         // We only need 2 intents in this bot. We only respond to messages in guilds and private channels.
         // All other events will be disabled.
-        JDABuilder.createLight(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES)
-                .addEventListeners(new Main())
-                .setActivity(Activity.playing("Type !ping"))
-                .build();
+        JDABuilder jdaBuilder = JDABuilder.createLight(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES)
+                .addEventListeners(new Main());
+        if (LocalDateTime.now().getDayOfWeek().equals(DayOfWeek.THURSDAY)) {
+            jdaBuilder.setActivity(Activity.playing("Feliz jueves \uD83E\uDD73"))
+                    .build();
+        } else {
+            jdaBuilder.setActivity(Activity.playing("No es jueves ☹️"))
+                    .build();
+        }
     }
 
     @Override
