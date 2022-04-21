@@ -10,7 +10,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
-public class Main extends ListenerAdapter {
+public class Main extends ReceivedMessage {
     private static final String filename = "C:\\Users\\xdomi\\Desktop\\DiscordBot\\src\\main\\java\\BOT_TOKEN.txt";
 
     public static void main(String[] args) throws LoginException {
