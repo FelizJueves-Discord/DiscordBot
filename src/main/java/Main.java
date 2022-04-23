@@ -16,18 +16,13 @@ public class Main extends ReceivedMessage {
     public static void main(String[] args) throws LoginException {
         //read token in "BOT_TOKEN" text file
         final String token;
-        try {
-            final File myObj = new File(filename);
-            final Scanner myReader = new Scanner(myObj);
+        final File myObj = new File(filename);
 
+        try (Scanner myReader = new Scanner(myObj)) {
             token = myReader.nextLine();
-
-            myReader.close();
         } catch (FileNotFoundException e) {
-//            e.printStackTrace();
             throw new RuntimeException("Something went wrong loading token");
         }
-
 
         // We only need 2 intents in this bot. We only respond to messages in guilds and private channels.
         // All other events will be disabled.
