@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class ReceivedMessage extends ListenerAdapter {
     private int count = 0;
@@ -14,6 +15,7 @@ public class ReceivedMessage extends ListenerAdapter {
     public void onMessageReceived(MessageReceivedEvent event) {
         final String prefix = "!";
         final Message msg = event.getMessage();
+        ArrayList<String> HelpList = FillHelpList();
 
         final String raw = msg.getContentRaw();
         final MessageChannel channel = event.getChannel();
@@ -34,6 +36,22 @@ public class ReceivedMessage extends ListenerAdapter {
                             + "\n```Feliz jueves sent by " + author.getName() + ", " + count + "```").queue();
                 }
                 break;
+            case prefix + "help":
+                String liste = "```";
+                for (String chose : HelpList) {
+                    liste += chose + "\n\n";
+                }
+                liste+="```";
+                channel.sendMessage(liste).queue();
+                break;
         }
+    }
+
+    public ArrayList<String> FillHelpList(){
+        ArrayList<String> stringList = new ArrayList<>();
+        stringList.add("!ping : sends back pong! and the time needed to respond");
+        stringList.add("allo : sends back 'bye'");
+        stringList.add("https://dbx10.thigh-high.club/npni9jxzk2407yywbuwi.mp4 : sends your count");
+        return stringList;
     }
 }
